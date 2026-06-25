@@ -129,6 +129,40 @@
         "linkedin": "#",
         "website": "#"
       }
+    },
+    {
+      "id": "ty",
+      "name": "Ty Cockburn",
+      "role": "Advisory Engineer",
+      "avatar": "assets/ty_avatar.png",
+      "summary": "Bridging imagination and implementation by grounding ambitious concepts in safe, reliable, and functional reality.",
+      "bio": [
+        {
+          "paragraphs": [
+            "Ty Cockburn is an engineer in the broadest sense of the word. With a background spanning mechanical engineering, practical trades, industrial operations, and complex multidisciplinary coordination, he brings the rare discipline of making difficult things actually work in the physical world. He operates with the understanding that every elegant design must eventually survive contact with reality, and that mistakes carry real consequences.",
+            "A master of coordinating across specialists, contractors, and project phases, Ty maintains momentum and quality where others see logistical friction. Beyond technical competence, he brings a defining quality of quiet confidence and humility. Respect, to Ty, is something freely given rather than carefully rationed. He naturally treats younger colleagues as peers, teaching by working alongside them and mentoring without talking down.",
+            "Initially serving in an advisory capacity, Ty helps shape the engineering direction of Honkerworks, serving as the critical bridge between imagination and implementation. He believes that great engineering is rarely the work of a single individual—it emerges from teams built on trust, mutual respect, and shared responsibility."
+          ],
+          "heading": "Focus Areas:",
+          "list": [
+            "Bridging ambitious engineering designs with physical implementation",
+            "Systems thinking, logistics, planning, and safe operational execution",
+            "Coordinating multidisciplinary teams, specialists, and contractors",
+            "Mentoring, peer collaboration, and cultivating collective responsibility",
+            "Translating advanced concepts into functional, reliable systems that exist in the world"
+          ],
+          "postscript": "His perspective brings the practical judgment and deep competence required to ensure that what we build is both safe and built to last."
+        }
+      ],
+      "additionalRoles": [
+        "Mechanical Engineer",
+        "Industrial Operations",
+        "Systems Architect",
+        "Logistics & Planning"
+      ],
+      "links": {
+        "linkedin": "#"
+      }
     }
   ],
   "growing": {
