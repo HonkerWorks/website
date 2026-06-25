@@ -200,6 +200,43 @@
       "links": {
         "linkedin": "#"
       }
+    },
+    {
+      "id": "josh",
+      "name": "Joshua Eichler",
+      "role": "Advisory Partner",
+      "avatar": "assets/josh_avatar.png",
+      "summary": "Bringing financial insight, systems thinking, and a strategic perspective to help shape organization strategy and build conditions where ambitious ideas can thrive.",
+      "bio": [
+        {
+          "heading": "The Catalyst Archetype",
+          "paragraphs": [
+            "Joshua Eichler embodies the archetype of the catalyst—someone who quietly alters the trajectory of projects and lives not by demanding attention, but by opening doors, recognizing potential, and investing in people before they fully believe in themselves. For Joshua, capability is defined by trust and loyalty, demonstrating through action rather than promises. Whether traveling internationally to support a close friend in need or committing personal resources to enable new endeavors, he represents the belief that a single act of trust can echo for decades.",
+            "His academic background spans both engineering and finance, giving him a unique appreciation for how technical systems and economic systems influence one another. While he chose to apply this discipline professionally in finance, he retains an engineer's instinct for analyzing complex structures, identifying key leverage points, and building durable organizations.",
+            "Joshua is drawn to ambitious, long-term ideas that improve the future through engineering, entrepreneurship, and execution. He understands that transformative work requires patience, resilience, and a willingness to invest in future outcomes rather than fleeting recognition."
+          ]
+        },
+        {
+          "heading": "Focus Areas:",
+          "list": [
+            "Strategic advisory, financial modeling, and long-term organizational planning",
+            "Systems thinking at the intersection of technical design and economics",
+            "Identifying leverage points for sustainable organizational scaling",
+            "Enabling and funding experimental initiatives with low-friction trust",
+            "Cultivating collaborative cohorts focused on execution and shared opportunity"
+          ],
+          "postscript": "His contribution is centered on creating the conditions in which ambitious people and ideas can thrive together."
+        }
+      ],
+      "additionalRoles": [
+        "Financial Analyst",
+        "Systems Advisor",
+        "Strategic Planner",
+        "Investment Coordinator"
+      ],
+      "links": {
+        "linkedin": "#"
+      }
     }
   ],
   "growing": {
