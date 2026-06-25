@@ -1280,6 +1280,43 @@
           "links": {
             "linkedin": "#"
           }
+        },
+        {
+          "id": "dan",
+          "name": "Dan Gomez",
+          "role": "Operations & Engineering Partner",
+          "avatar": "assets/dan_avatar.png",
+          "summary": "Carrying operational responsibility and practical engineering insight to ensure the resilience, health, and sustainability of our systems and cohort.",
+          "bio": [
+            {
+              "heading": "The Guardian Archetype",
+              "paragraphs": [
+                "Dan Gomez represents the archetype of the guardian—someone who quietly carries responsibility so that others do not have to. For Dan, leadership is rooted in restraint, preparation, and protection rather than status or self-promotion. He operates with the simple belief that capability carries responsibility: if you have the ability to help, you should. His instinct is to notice what needs doing, quietly begin the work, and ensure that people, systems, and projects remain capable of enduring difficult circumstances.",
+                "His approach combines practical engineering intuition with years of operational leadership across multiple industries. Dan's technical understanding is built on curiosity, self-directed learning, and a multi-generational family lineage of working on mechanical systems. To Dan, engineering isn't just about how something works—it's about understanding how things fail, why they fail, and how to rebuild them to be stronger than they were before.",
+                "He leads without demanding attention, earning trust through consistency. Whether repairing critical infrastructure, coordinating project logistics, or stopping to help a stranger on the road, he quietens panic with preparation. He values reliability over recognition, ensuring that the foundation of our work is built to last."
+              ]
+            },
+            {
+              "heading": "Focus Areas:",
+              "list": [
+                "Operational coordination and systems resilience across projects",
+                "Diagnosing system failure points and designing preventative solutions",
+                "Supporting engineering initiatives with multi-generational mechanical intuition",
+                "Carrying logistical responsibility to protect and enable team execution",
+                "Cultivating organizational practices focused on preparation and mutual trust"
+              ],
+              "postscript": "His presence brings the quiet strength, practical wisdom, and steady care that allow others to do their best work with confidence."
+            }
+          ],
+          "additionalRoles": [
+            "Operations Manager",
+            "Systems Steward",
+            "Project Coordinator",
+            "Mechanical Specialist"
+          ],
+          "links": {
+            "linkedin": "#"
+          }
         }
       ],
       "growing": {
