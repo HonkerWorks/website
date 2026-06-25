@@ -1212,15 +1212,16 @@
         },
         {
           "id": "jonathan",
-          "name": "Jonathan",
+          "name": "Jonathan Evans",
           "role": "Partner",
           "subtitle": "Independent Researcher & Developer",
           "avatar": "assets/jonathan_avatar.png",
-          "summary": "Contributing broad technical thinking together with practical business insight.",
+          "summary": "Contributing broad technical thinking together with practical insight as a researcher, developer, writer, educator, and business owner.",
           "bio": [
             {
               "paragraphs": [
-                "Jonathan contributes broad technical thinking together with practical business insight."
+                "Jonathan Evans contributes broad technical thinking together with practical business insight.",
+                "Operating at the intersection of technology and communication, he brings active experience as a writer, educator, and business owner to guide projects from conceptual discovery to sustainable execution."
               ],
               "heading": "Current focus areas include:",
               "list": [
@@ -1235,7 +1236,11 @@
               "postscript": "Rather than fitting into a narrow job title, Jonathan represents the value of independent expertise brought together around shared goals."
             }
           ],
-          "additionalRoles": [],
+          "additionalRoles": [
+            "Writer",
+            "Educator",
+            "Business Owner"
+          ],
           "links": {
             "github": "#",
             "linkedin": "#",
