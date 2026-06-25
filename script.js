@@ -1217,24 +1217,23 @@
           "role": "Partner",
           "subtitle": "Independent Researcher & Developer",
           "avatar": "assets/jonathan_avatar.png",
-          "summary": "Contributing broad technical thinking together with practical insight as a researcher, developer, writer, educator, and business owner.",
+          "summary": "Providing steadfast support, thoughtful analysis, and a calm, long-term perspective to guide ambitious ideas toward sustainable reality.",
           "bio": [
             {
               "paragraphs": [
-                "Jonathan Evans contributes broad technical thinking together with practical business insight.",
-                "Operating at the intersection of technology and communication, he brings active experience as a writer, educator, and business owner to guide projects from conceptual discovery to sustainable execution."
+                "Jonathan's role at Honkerworks is built on a foundation of long-term consistency. For years, he was the friend who quietly kept reaching out, maintaining connection even when the busy cycles of research and building meant communication wasn't always returned. When Honkerworks finally began taking shape, he was among the first to step forward and say, 'Let's talk.' That patient willingness to invest in the future is a pattern that defines both his character and his work.",
+                "He brings a quiet, stabilizing presence to the team, contributing through deep structural analysis and practical business execution. He does not seek the spotlight; instead, he serves as an anchor—asking the difficult questions when they matter most and helping steer projects when uncertainty grows.",
+                "His focus is on making ambitious ideas sustainable over the long haul. Through thoughtful collaboration and a steady perspective, he ensures that the laboratory's creations are built on ground that lasts."
               ],
               "heading": "Current focus areas include:",
               "list": [
-                "Independent research",
-                "Software development",
-                "Systems thinking",
-                "Market analysis",
-                "Business strategy",
-                "Identifying emerging opportunities",
-                "Challenging assumptions through discussion and experimentation"
+                "Long-term systems thinking and technical analysis",
+                "Aligning advanced software concepts with sustainable business models",
+                "Evaluating and challenging core architectural assumptions",
+                "Independent software development and experimental research",
+                "Fostering durable, trust-based collaboration across disciplines"
               ],
-              "postscript": "Rather than fitting into a narrow job title, Jonathan represents the value of independent expertise brought together around shared goals."
+              "postscript": "Rather than defining him by a single moment, Jonathan's contribution represents the value of quiet expertise and steadfast dedication brought together around shared goals."
             }
           ],
           "additionalRoles": [
