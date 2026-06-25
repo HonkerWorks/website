@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HonkerWorks | Research & Engineering Ecosystem</title>
+    <meta name="description" content="HonkerWorks is a research and engineering ecosystem built to become capable enough to protect ourselves, protect others, and protect the universe.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Global AI Announcement Banner -->
+    <div id="global-ai-banner" class="global-ai-banner">
+        <span class="pulse-icon">🤖</span> ALL WEBSITE CONTENT & CODE PROUDLY GENERATED ENTIRELY WITH AI
+    </div>
+
+    <!-- Background Canvas for Banana Mode (Fixed behind all elements) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Floating Canvas Controls (Subtle & Glassmorphic) -->
+    <div id="canvas-controls" class="floating-controls controls-hidden">
+        <button id="toggle-animation-btn" class="control-btn" title="Toggle Background Animation">
+            <span class="emoji">🍌</span> <span class="status-text">ON</span>
+        </button>
+        <button id="prev-mode-btn" class="control-btn" title="Previous Animation Mode">◀</button>
+        <span id="current-mode-display" class="mode-name">Nebula</span>
+        <button id="next-mode-btn" class="control-btn" title="Next Animation Mode">▶</button>
+        <button id="toggle-auto-btn" class="control-btn active" title="Toggle Auto-Cycle">AUTO</button>
+    </div>
+
+    <!-- Active Laboratory Log Overlay (Static grid lines, numbers, giving a lab aesthetic) -->
+    <div class="lab-grid-overlay"></div>
+
+    <!-- ========================================== -->
+    <!-- INTRO FLOW CONTAINER                       -->
+    <!-- ========================================== -->
+    <div id="intro-container" class="fullscreen-container">
+        
+        <!-- Phase -1: Storage Consent Banner (Blocks Entry) -->
+        <section id="phase-consent" class="intro-phase active">
+            <div class="glass-card centered-card">
+                <div class="lab-tag">RECEIPT_AUTHORIZATION // STORAGE</div>
+                <h1 class="accent-title">Lab Storage Authorization</h1>
+                <p class="phase-desc">
+                    HonkerWorks requires local storage (`localStorage`) to preserve your portal access states, remember your chosen explanation path, and record your custom color calibration matrix. 
+                    <br><br>
+                    We do not run tracking scripts, analytics, or third-party cookies.
+                </p>
+                <div class="button-group flex-col">
+                    <button id="consent-grant-btn" class="action-btn primary-btn w-100">Authorize & Proceed</button>
+                    <button id="consent-decline-btn" class="action-btn secondary-btn w-100">Decline (Stateless Mode)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 0: Theme Calibration (Pick 3 Colors) -->
+        <section id="phase-calibration" class="intro-phase">
+            <div class="glass-card centered-card">
+                <div class="lab-tag">CALIBRATION // VISUAL CHANNELS</div>
+                <h2 class="accent-title">Calibrate Visual Sensors</h2>
+                <p class="phase-desc">
+                    Select exactly 3 favorite colors to calibrate the website accents, card outlines, and background particle fields.
+                </p>
+                
+                <!-- Curated Swatches Grid -->
+                <div class="swatch-grid">
+                    <div class="swatch" data-color="#ffd31d" style="background-color: #ffd31d;">
+                        <span class="swatch-name">Banana</span>
+                    </div>
+                    <div class="swatch" data-color="#ff2e63" style="background-color: #ff2e63;">
+                        <span class="swatch-name">Cyber Pink</span>
+                    </div>
+                    <div class="swatch" data-color="#00adb5" style="background-color: #00adb5;">
+                        <span class="swatch-name">Teal</span>
+                    </div>
+                    <div class="swatch" data-color="#39e58e" style="background-color: #39e58e;">
+                        <span class="swatch-name">Toxic</span>
+                    </div>
+                    <div class="swatch" data-color="#ffb423" style="background-color: #ffb423;">
+                        <span class="swatch-name">Amber</span>
+                    </div>
+                    <div class="swatch" data-color="#e63946" style="background-color: #e63946;">
+                        <span class="swatch-name">Sunset</span>
+                    </div>
+                    <div class="swatch" data-color="#4f46e5" style="background-color: #4f46e5;">
+                        <span class="swatch-name">Indigo</span>
+                    </div>
+                    <div class="swatch" data-color="#a855f7" style="background-color: #a855f7;">
+                        <span class="swatch-name">Purple</span>
+                    </div>
+                    <div class="swatch" data-color="#f97316" style="background-color: #f97316;">
+                        <span class="swatch-name">Orange</span>
+                    </div>
+                    <div class="swatch" data-color="#10b981" style="background-color: #10b981;">
+                        <span class="swatch-name">Mint</span>
+                    </div>
+                    <div class="swatch" id="custom-add-btn" style="background: rgba(255,255,255,0.05); border: 2px dashed var(--text-muted); position: relative; display: flex; align-items: center; justify-content: center; height: 60px; padding: 0;">
+                        <span class="swatch-name" style="color: var(--text-secondary); background: transparent; font-weight: 500; font-size: 0.75rem;">+ Custom</span>
+                        <input type="color" id="hidden-picker" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;" title="Select Custom Color">
+                    </div>
+                </div>
+
+                <div class="selection-status text-center">
+                    <span id="calibration-counter">Selected: 0 / 3</span>
+                </div>
+
+                <div class="card-footer text-center mt-1">
+                    <button id="confirm-calibration-btn" class="action-btn primary-btn w-100" disabled>Confirm Calibration</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 1: Ready for Cucumbergeddon? -->
+        <section id="phase-ready" class="intro-phase">
+            <div class="glass-card centered-card text-center">
+                <div class="lab-tag">SYSTEM INITIALIZATION</div>
+                <h1 class="accent-title">Ready for Cucumbergeddon?</h1>
+                <p class="phase-desc">An experimental portal entry for HonkerWorks Research & Engineering Lab.</p>
+                <button id="begin-btn" class="action-btn primary-btn">Begin</button>
+            </div>
+        </section>
+
+        <!-- Phase 2: Cucumbergeddon Comic -->
+        <section id="phase-comic-cucumbergeddon" class="intro-phase">
+            <div class="glass-card wide-card">
+                <div class="card-header">
+                    <span class="lab-tag">TRANSCRIPT_01 // CUCUMBERGEDDON COMIC</span>
+                    <span class="header-dots"><span></span><span></span><span></span></span>
+                </div>
+                
+                <div class="comic-container">
+                    <!-- Cucumbergeddon Comic Placeholder Grid -->
+                    <div class="comic-placeholder">
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 1</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🥒💥🚀</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: A giant, retro-futuristic cucumber approaches Earth like a meteor.
+                                <br>
+                                <strong>Caption</strong>: "It arrived without warning: The Cucumbergeddon."
+                            </div>
+                        </div>
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 2</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🛠️🤖🏢</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: Engineers in a dark laboratory drafting glowing banana-shaped components.
+                                <br>
+                                <strong>Caption</strong>: "In the depth of HonkerWorks Lab, we didn't panic. We calibrated."
+                            </div>
+                        </div>
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 3</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🍌🛰️🛡️</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: A massive banana orbital grid fires a warm containment field around the cucumber.
+                                <br>
+                                <strong>Caption</strong>: "Stabilizing chaotic inputs with deterministic tools."
+                            </div>
+                        </div>
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 4</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🍵👨‍💻🌌</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: The cucumber harmlessly dissolves into a glowing green tea mist. Engineers sip tea.
+                                <br>
+                                <strong>Caption</strong>: "Threat neutralized. Back to compiler diagnostics and state orchestration."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-center">
+                    <button id="read-comic-btn" class="action-btn primary-btn">I've read it</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 3: Choose Explanation Path -->
+        <section id="phase-explanation-choice" class="intro-phase">
+            <div class="glass-card centered-card text-center">
+                <div class="lab-tag">INTELLIGENCE ROUTING</div>
+                <h2 class="accent-title">How do you want HonkerWorks explained?</h2>
+                <p class="phase-desc">Choose your transmission format. You can easily view the alternative format afterward.</p>
+                <div class="button-group">
+                    <button id="choose-comic-btn" class="action-btn secondary-btn">
+                        <span class="btn-icon">🎨</span> Comic version
+                    </button>
+                    <button id="choose-text-btn" class="action-btn secondary-btn">
+                        <span class="btn-icon">📄</span> Text dumpage
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 4A: Comic Explanation -->
+        <section id="phase-explanation-comic" class="intro-phase">
+            <div class="glass-card wide-card">
+                <div class="card-header">
+                    <span class="lab-tag">TRANSCRIPT_02 // HOW HONKERWORKS LAB WORKS</span>
+                    <span class="header-dots"><span></span><span></span><span></span></span>
+                </div>
+                
+                <div class="comic-container">
+                    <!-- HonkerWorks Comic Placeholder Grid -->
+                    <div class="comic-placeholder">
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 1</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🪿📦⚖️</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: A courier goose delivering a sealed message to a giant glowing forge database.
+                                <br>
+                                <strong>Honker</strong>: "HonkerWorks isn't a startup. We build software, tools, and culture to become capable enough to protect what matters."
+                            </div>
+                        </div>
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 2</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🪐🕸️🤖</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: A unified ecosystem linking distributed OS (HonkerOS) and orchestration (Leira).
+                                <br>
+                                <strong>Honker</strong>: "We explore the limits of computers. Distributed compute, deterministic kernels, and agent networks."
+                            </div>
+                        </div>
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 3</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">⚖️📊🎓</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: An AI agent cross-examining logs (ReVeriForge) alongside a trading chart (AegisTrade).
+                                <br>
+                                <strong>Honker</strong>: "We study epistemic certainty. What survives examination? What is risk under chaos?"
+                            </div>
+                        </div>
+                        <div class="comic-panel">
+                            <span class="panel-num">Panel 4</span>
+                            <div class="panel-graphic">
+                                <span class="panel-emoji">🧩💡🔓</span>
+                            </div>
+                            <div class="panel-script">
+                                <strong>[Visual]</strong>: The Honker standing on a scaffold, constructing a massive golden telescope.
+                                <br>
+                                <strong>Honker</strong>: "Every project is a research program. We don't ship marketing slop; we share files, journals, and tools."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer split-footer">
+                    <button id="complete-flow-comic-btn" class="action-btn primary-btn">Enter Laboratory</button>
+                    <button id="switch-to-text-btn" class="action-btn text-link-btn">Skip to Text version</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 4B: Text Explanation -->
+        <section id="phase-explanation-text" class="intro-phase">
+            <div class="glass-card wide-card scrollable-card">
+                <div class="card-header">
+                    <span class="lab-tag">TRANSCRIPT_03 // LAB_JOURNAL.TXT</span>
+                    <span class="header-dots"><span></span><span></span><span></span></span>
+                </div>
+                
+                <div class="card-content text-dumpage">
+                    <h2>HonkerWorks: A Laboratory Context</h2>
+                    <p>HonkerWorks exists outside the standard venture-backed software loop. We operate as an independent research and engineering laboratory. This means we treat code, systems, and papers as experiments aimed at answering foundational questions in computation and collaboration.</p>
+                    
+                    <h3>Our Metaphors</h3>
+                    <ul>
+                        <li><strong>Ideas are Hypotheses:</strong> We do not claim to have pre-packaged answers. Every software tool is a physical test of a conceptual claim.</li>
+                        <li><strong>Uncertainty is Natural:</strong> We value honest failure over manufactured certainty. If we build a system that breaks, we document the fracture points.</li>
+                        <li><strong>Craftsmanship is the Method:</strong> Code should be clean, fast, deterministic, and easily auditable.</li>
+                    </ul>
+
+                    <h3>Core Inquiry Areas</h3>
+                    <p>Our research programs cover: distributed computing substrates, orchestration kernels, multi-agent protocol safety, epistemic analysis (what is true?), quantitative trading models under noise, programming language parser semantics, and deep-media sharing graphs.</p>
+                </div>
+
+                <div class="card-footer split-footer">
+                    <button id="complete-flow-text-btn" class="action-btn primary-btn">Enter Laboratory</button>
+                    <button id="switch-to-comic-btn" class="action-btn text-link-btn">Skip to Comic version</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN SITE VIEW                             -->
+    <!-- ========================================== -->
+    <div id="main-site" class="hidden">
+        
+        <!-- Header -->
+        <header class="lab-header">
+            <div class="logo">
+                <span class="logo-emoji">🍌</span> HonkerWorks
+            </div>
+            <nav class="lab-nav">
+                <a href="#lab-ethos" class="nav-link">Ethos</a>
+                <a href="#research-programs" class="nav-link">Programs</a>
+                <a href="#explanations" class="nav-link">Journals & Comics</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section text-center">
+            <div class="lab-badge">LABORATORY OVERVIEW // ACTIVE STATUS</div>
+            <h1 class="hero-title">HonkerWorks</h1>
+            <p class="hero-tagline">Build capability. Protect what matters. Let reality vote.</p>
+            <p class="hero-subtitle">
+                HonkerWorks is a research and engineering ecosystem built to become capable enough to protect ourselves, protect others, and protect the universe. We build software, research, tools, protocols, experiments, infrastructure, knowledge, and culture.
+            </p>
+            <div class="lab-status-strip">
+                <span class="status-item"><span class="dot pulse-green"></span> System: Active</span>
+                <span class="status-item"><span class="dot green"></span> Programs: 8 Online</span>
+                <span class="status-item"><span class="dot gold"></span> Banana Mode: Engaged</span>
+            </div>
+            <div class="ai-generated-banner">
+                <span class="pulse-icon">🤖</span> ALL WEBSITE CONTENT & CODE PROUDLY GENERATED ENTIRELY WITH AI
+            </div>
+        </section>
+
+        <!-- Ethos Section -->
+        <section id="lab-ethos" class="content-section">
+            <div class="glass-card">
+                <div class="card-header">
+                    <span class="lab-tag">01 // THE LAB MANIFESTO</span>
+                </div>
+                <div class="grid-2col">
+                    <div class="manifesto-text">
+                        <h3>Being helpless sucks.</h3>
+                        <p>So we build capability—the ability to perceive, decide, communicate, coordinate, act, receive feedback, and update. We believe that to build excellent tools, we must build a better way to learn how to build them.</p>
+                        <p><strong>Our method is disciplined care:</strong> Observe. Verify. Forge. Temper. Repeat. We run experiments, document our decisions, preserve receipts, and let reality vote. We value uncertainty, celebrate rapid iteration, and reject startup-slop in favor of engineering craftsmanship.</p>
+                        
+                        <div class="ethics-box">
+                            <span class="ethics-heading">ETHICAL FLOOR</span>
+                            <p>Respect agency. Do not become cruel, manipulative, or extractive. Don’t be an asshole.</p>
+                        </div>
+                    </div>
+                    <div class="manifesto-quotes">
+                        <div class="quote-box">
+                            <span class="quote-symbol">“</span>
+                            <p><strong>Reality gets a vote.</strong> We remain honest about uncertainty and check hypotheses against computational evidence.</p>
+                        </div>
+                        <div class="quote-box">
+                            <span class="quote-symbol">“</span>
+                            <p><strong>Everything is suspect.</strong> This is our protection against dogma. We examine witness reports, track divergence, and verify convergence.</p>
+                        </div>
+                        <div class="quote-box">
+                            <span class="quote-symbol">“</span>
+                            <p><strong>Load-Bearing Stewardship.</strong> Love means attention, stewardship, and refusing to optimize while forgetting who or what the work is for.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Axioms / Epistemics -->
+        <section class="content-section bg-subtle-box">
+            <div class="axioms-grid">
+                <div class="axiom-card glass-card">
+                    <span class="axiom-label">THE METHOD</span>
+                    <h4>Observe. Verify. Forge. Temper. Repeat.</h4>
+                </div>
+                <div class="axiom-card glass-card">
+                    <span class="axiom-label">EPISTEMIC RULE</span>
+                    <h4>Reality gets a vote.</h4>
+                </div>
+                <div class="axiom-card glass-card">
+                    <span class="axiom-label">PROTECTION AGAINST DOGMA</span>
+                    <h4>Everything is suspect.</h4>
+                </div>
+                <div class="axiom-card glass-card">
+                    <span class="axiom-label">MEMORY SYSTEM</span>
+                    <h4>Conversations are witnesses. Repositories are memory. Receipts record what happened.</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Programs (Projects) Section -->
+        <section id="research-programs" class="content-section">
+            <h2 class="section-title">Active Research Programs</h2>
+            <p class="section-subtitle">We organize our explorations into structured research programs rather than isolated commercial products.</p>
+            
+            <div class="programs-grid">
+                
+                <!-- HonkerOS -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-01 // DISTRIBUTED SUBSTRATE</span>
+                        <span class="status-dot green" title="Active development"></span>
+                    </div>
+                    <h3>HonkerOS</h3>
+                    <p class="program-desc">A distributed AI operating system. The substrate that coordinates machines, workers, memory, execution contexts, and scheduling across local, cloud, and edge environments.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>How do we merge heterogeneous cloud and edge nodes into one coherent, self-healing, agent-friendly environment?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Evaluating state sync latency bounds under high-packet-loss edge execution.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leira -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-02 // DETERMINISTIC KERNEL</span>
+                        <span class="status-dot green" title="Active development"></span>
+                    </div>
+                    <h3>Leira</h3>
+                    <p class="program-desc">A deterministic orchestration kernel. She dispatches work, commits execution records, issues receipts, and preserves audit evidence without hidden autonomous hand-waving.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>Can we eliminate all heuristics from orchestration, making execution completely reproducible?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Building zero-allocation queues for real-time transaction dispatch.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chuckles -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-03 // AGENT TRANSPORT</span>
+                        <span class="status-dot gold" title="Research phase"></span>
+                    </div>
+                    <h3>Chuckles</h3>
+                    <p class="program-desc">A secure, decentralized communication protocol. Coordinates identity, transport encryption, presence state, and capability negotiation between humans, services, and AI systems.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>How can autonomous agents securely negotiate capabilities and form ad-hoc coalitions without central auth?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Prototyping noise protocol handshake variants for low-power agent micro-kernels.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ReVeriForge -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-04 // EPISTEMIC ENGINE</span>
+                        <span class="status-dot green" title="Active development"></span>
+                    </div>
+                    <h3>ReVeriForge</h3>
+                    <p class="program-desc">An epistemic engine. Supports automated witness-first reasoning, structured cross-examination, evidence preservation, divergence tracking, and structured convergence checks.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>What claims survive rigorous, automated cross-examination when witnesses are forced to justify their evidence?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Validating witness consistency using constraint logic programs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Moonshot -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-05 // COMPILER TOOLING</span>
+                        <span class="status-dot green" title="Active development"></span>
+                    </div>
+                    <h3>Moonshot</h3>
+                    <p class="program-desc">Jai research language tooling. Focuses on parser instrumentation, formatting constraints, semantic analysis, source-to-source transformations, and language experiments.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>How do language formatting and static analysis tools scale when compile-time execution is arbitrary?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Developing an AST-based semantic linter mapping macro side-effects.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BlowDig -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-06 // KNOWLEDGE SYSTEMS</span>
+                        <span class="status-dot blue" title="Stable / Archival"></span>
+                    </div>
+                    <h3>BlowDig</h3>
+                    <p class="program-desc">Research corpora mining from long-form technical material. Processes downloads, audio logs, transcripts, indexing, search indices, and compiler engineering claim mapping.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>Can automated claim-extraction mapping build a coherent knowledge base from unorganized audio archives?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Testing semantic clustering models on compiler design Q&A logs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AegisTrade -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-07 // QUANTITATIVE RISK</span>
+                        <span class="status-dot green" title="Active development"></span>
+                    </div>
+                    <h3>AegisTrade</h3>
+                    <p class="program-desc">A quantitative research and execution engine. Designs reproducible backtests, risk tournament management, statistical validation matrices, and automated trade execution protocols.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>How do we establish deterministic mathematical boundaries on model decay in highly non-stationary markets?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Analyzing strategy overfit coefficients within historical risk tournament cohorts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zenchor -->
+                <div class="program-card glass-card">
+                    <div class="card-header">
+                        <span class="lab-tag">HW-08 // MEDIA RESEARCH</span>
+                        <span class="status-dot gold" title="Research phase"></span>
+                    </div>
+                    <h3>Zenchor</h3>
+                    <p class="program-desc">A platform researching discovery networks and shared media discussion (music, papers, articles, courses) to explore social trust and intellectual graphs.</p>
+                    <div class="lab-notes">
+                        <div class="note-block">
+                            <span class="note-label">Research Question</span>
+                            <p>Can a discovery engine promote intellectual depth and sustained focus without resorting to engagement-optimizing feeds?</p>
+                        </div>
+                        <div class="note-block">
+                            <span class="note-label">Current Experiment</span>
+                            <p>Graph-theoretic modeling of trust propagation within small-world discussion cohorts.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Explanations Section (Contains both text and comic explanation tabs) -->
+        <section id="explanations" class="content-section">
+            <h2 class="section-title">Laboratory Documentation</h2>
+            <p class="section-subtitle">Read the transcripts detailing our structural methodology. Switch between formats freely.</p>
+
+            <div class="glass-card documentation-panel">
+                <div class="doc-tabs">
+                    <button id="tab-text-btn" class="doc-tab active">
+                        <span class="tab-icon">📄</span> Technical Journal (Text)
+                    </button>
+                    <button id="tab-comic-btn" class="doc-tab">
+                        <span class="tab-icon">🎨</span> Illustrated Overview (Comic)
+                    </button>
+                </div>
+
+                <!-- Text explanation container -->
+                <div id="doc-content-text" class="tab-content active">
+                    <div class="text-dumpage">
+                        <h2>HonkerWorks: A Laboratory Context</h2>
+                        <p>HonkerWorks operates as an independent research and engineering laboratory. Rather than building product marketing funnels, we focus on engineering craftsmanship, reproducible methods, and addressing deep technical uncertainties.</p>
+                        
+                        <h3>Operational Philosophy</h3>
+                        <p>Our work is structured around a cycle of: <strong>Observe. Verify. Forge. Temper. Repeat.</strong> We believe software companies spend too much time polishing the packaging and not enough time understanding the architecture. We focus on the architecture.</p>
+
+                        <h3>Outputs & Artifacts</h3>
+                        <p>We do not measure progress in "ship cycles" or "user metrics." Instead, our outputs include:</p>
+                        <ul>
+                            <li><strong>System Experiments:</strong> Concrete software engines (like HonkerOS and Leira) designed to test architectural hypotheses.</li>
+                            <li><strong>Epistemic Verification:</strong> Systems like ReVeriForge designed to audit claims, verify logical loops, and detect divergences.</li>
+                            <li><strong>Educational Media:</strong> Diagrams, essays, technical audio transcripts, and serialized comics explaining system concepts.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Comic explanation container -->
+                <div id="doc-content-comic" class="tab-content">
+                    <div class="comic-container">
+                        <!-- HonkerWorks Comic Placeholder Grid -->
+                        <div class="comic-placeholder">
+                            <div class="comic-panel">
+                                <span class="panel-num">Panel 1</span>
+                                <div class="panel-graphic">
+                                    <span class="panel-emoji">🪿📦⚖️</span>
+                                </div>
+                                <div class="panel-script">
+                                    <strong>[Visual]</strong>: A courier goose delivering a sealed message to a giant glowing forge database.
+                                    <br>
+                                    <strong>Honker</strong>: "HonkerWorks isn't a startup. We build software, tools, and culture to become capable enough to protect what matters."
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <span class="panel-num">Panel 2</span>
+                                <div class="panel-graphic">
+                                    <span class="panel-emoji">🪐🕸️🤖</span>
+                                </div>
+                                <div class="panel-script">
+                                    <strong>[Visual]</strong>: A unified ecosystem linking distributed OS (HonkerOS) and orchestration (Leira).
+                                    <br>
+                                    <strong>Honker</strong>: "We explore the limits of computers. Distributed compute, deterministic kernels, and agent networks."
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <span class="panel-num">Panel 3</span>
+                                <div class="panel-graphic">
+                                    <span class="panel-emoji">⚖️📊🎓</span>
+                                </div>
+                                <div class="panel-script">
+                                    <strong>[Visual]</strong>: An AI agent cross-examining logs (ReVeriForge) alongside a trading chart (AegisTrade).
+                                    <br>
+                                    <strong>Honker</strong>: "We study epistemic certainty. What survives examination? What is risk under chaos?"
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <span class="panel-num">Panel 4</span>
+                                <div class="panel-graphic">
+                                    <span class="panel-emoji">🧩💡🔓</span>
+                                </div>
+                                <div class="panel-script">
+                                    <strong>[Visual]</strong>: The Honker standing on a scaffold, constructing a massive golden telescope.
+                                    <br>
+                                    <strong>Honker</strong>: "Every project is a research program. We don't ship marketing slop; we share files, journals, and tools."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="content-section">
+            <div class="card-header">
+                <span class="lab-tag">02 // INTERDISCIPLINARY COHORT</span>
+            </div>
+            
+            <div class="team-intro">
+                <h2 id="team-title" class="section-title">We believe ambitious ideas require different kinds of minds.</h2>
+                <p id="team-subtitle" class="section-subtitle">Honkerworks is intentionally interdisciplinary.</p>
+                <p id="team-description" class="phase-desc" style="max-width: 800px; margin-bottom: 3rem;">
+                    Our goal isn't simply to build software. It's to investigate difficult problems, create useful tools, and continuously improve our understanding of the world. Different people contribute different perspectives—engineering, markets, research, systems thinking, operations, business, and experimentation.
+                </p>
+            </div>
+
+            <!-- Team Grid Populated Dynamically -->
+            <div id="team-grid" class="team-grid">
+                <!-- Javascript will inject cards here -->
+            </div>
+
+            <!-- A Growing Team Block -->
+            <div class="growing-team-card glass-card mt-1" style="margin-top: 3rem;">
+                <div class="card-header">
+                    <span class="lab-tag">HW-GROWTH // FUTURE RESEARCHERS</span>
+                </div>
+                <div class="grid-2col">
+                    <div class="manifesto-text">
+                        <h3 id="growing-title">A Growing Team</h3>
+                        <p>Honkerworks is still at the beginning.</p>
+                        <p>Many future contributors will join from different backgrounds:</p>
+                        
+                        <div id="growing-backgrounds" class="backgrounds-tags">
+                            <!-- Background items as code-like spans -->
+                        </div>
+                    </div>
+                    <div class="manifesto-quotes">
+                        <div class="quote-box" style="border-color: var(--theme-c2);">
+                            <span class="quote-symbol" style="color: rgba(255, 46, 99, 0.05);">“</span>
+                            <p id="growing-postscript">The goal is not to collect impressive résumés. The goal is to assemble people who enjoy asking difficult questions, building carefully, learning continuously, and leaving the world a little better than they found it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unresolved Questions / Field Notes Section -->
+        <section class="content-section">
+            <div class="glass-card">
+                <div class="card-header">
+                    <span class="lab-tag">03 // FIELD NOTES & UNRESOLVED QUESTIONS</span>
+                </div>
+                <div class="field-notes-content">
+                    <p class="phase-desc text-center">Active journals logs extracted from our witness history streams.</p>
+                    <div class="notes-timeline">
+                        <div class="timeline-item">
+                            <span class="item-date">MOMENT_103 // ARCHITECTURE</span>
+                            <h5>Orchestration without Heuristics</h5>
+                            <p>We are examining the performance trade-offs of eliminating all dynamic scheduler magic from Leira. Can deterministic FIFO dispatch survive arbitrary node latency spikes? Current simulations suggest queue partitioning is required.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="item-date">MOMENT_102 // EPISTEMICS</span>
+                            <h5>Witness Consensus Under Noise</h5>
+                            <p>Initial ReVeriForge cross-examinations indicate that model alignment drift generates high claim-divergence coefficients. We are building a constraint verification roundtable logic to enforce convergence bounds.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="item-date">MOMENT_101 // ENVIRONMENT</span>
+                            <h5>Jai Formatting Parser Bounds</h5>
+                            <p>Formulating AST transformers for Jai compile-time formats. Handling arbitrary code execution during syntax evaluation forces formatter checks to run in sandboxed execution pools.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section text-center">
+            <div class="glass-card centered-card">
+                <div class="lab-tag">COMMUNICATIONS</div>
+                <h2 class="accent-title">Connect with the Lab</h2>
+                <p class="phase-desc">Inquiries, collaborations, and peer-review submissions are welcome.</p>
+                <div class="contact-methods">
+                    <div class="contact-box">
+                        <span class="contact-label">Principal Investigator</span>
+                        <a href="mailto:tim@honkerworks.com" class="contact-email">tim@honkerworks.com</a>
+                    </div>
+                    <div class="contact-box">
+                        <span class="contact-label">General Operations</span>
+                        <a href="mailto:hello@honkerworks.com" class="contact-email">hello@honkerworks.com</a>
+                    </div>
+                    <div class="contact-box">
+                        <span class="contact-label">Automated Ingestion</span>
+                        <a href="mailto:virtual_assistant@honkerworks.com" class="contact-email">virtual_assistant@honkerworks.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="lab-footer text-center">
+            <p>&copy; 2026 HonkerWorks. All content and website proudly generated with AI. Zero trackers. Zero advertising.</p>
+            <p>
+                <button id="recalibrate-theme-btn" class="reset-link-btn">Recalibrate Theme</button>
+                |
+                <button id="reset-intro-btn" class="reset-link-btn">Reset Intro Flow</button> 
+                | 
+                <span class="footer-status">Banana Mode: Active</span>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Lab Dossier Modal Overlay -->
+    <div id="dossier-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dossier-name">
+        <div class="modal-container">
+            <div class="dossier-card glass-card">
+                <button id="close-dossier-btn" class="close-btn" aria-label="Close dossier">×</button>
+                <div class="dossier-header">
+                    <span class="lab-tag">LAB_DOSSIER // ACCESS_GRANTED</span>
+                </div>
+                <div class="dossier-profile">
+                    <div class="dossier-avatar-container">
+                        <img id="dossier-avatar" src="" alt="" class="dossier-avatar">
+                    </div>
+                    <div class="dossier-identity">
+                        <h2 id="dossier-name" class="accent-title"></h2>
+                        <div id="dossier-role" class="dossier-role-badge"></div>
+                    </div>
+                </div>
+                <div class="dossier-body">
+                    <div id="dossier-bio-content" class="dossier-text">
+                        <!-- Dynamic Bio HTML -->
+                    </div>
+                    <div class="dossier-sidebar">
+                        <div id="dossier-roles-section" class="sidebar-block">
+                            <span class="sidebar-label">ADDITIONAL ROLES</span>
+                            <div id="dossier-roles-list" class="roles-tags">
+                                <!-- Roles list -->
+                            </div>
+                        </div>
+                        <div class="sidebar-block">
+                            <span class="sidebar-label">COMMUNICATIONS</span>
+                            <div id="dossier-links" class="dossier-links">
+                                <!-- Social/GitHub links -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg Elements -->
+    <div id="drifting-banana" title="Click for Cucumbergeddon?">🍌</div>
+    <div id="storm-container"></div>
+
+    <!-- Core Script -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+{
+  "intro": {
+    "title": "We believe ambitious ideas require different kinds of minds.",
+    "subtitle": "Honkerworks is intentionally interdisciplinary.",
+    "description": "Our goal isn't simply to build software. It's to investigate difficult problems, create useful tools, and continuously improve our understanding of the world. Different people contribute different perspectives—engineering, markets, research, systems thinking, operations, business, and experimentation."
+  },
+  "members": [
+    {
+      "id": "timothy",
+      "name": "Timothy Eichler",
+      "role": "Chief Beam Inspector (CBI)",
+      "avatar": "assets/timothy_avatar.png",
+      "summary": "Co-ordinating system development, architectural design, and experimental engineering pipelines.",
+      "bio": [
+        {
+          "heading": "Why \"Chief Beam Inspector\"?",
+          "paragraphs": [
+            "The title Chief Beam Inspector (CBI) was adopted because it describes the role more accurately than traditional titles like CTO or Chief Architect.",
+            "The phrase comes from an old Zen teaching about the \"beam\" in one's own eye before pointing out the \"splinter\" in someone else's. Whether building software, designing organisations, or working with AI, the principle is the same: Inspect your own assumptions first.",
+            "Question your own reasoning. Look for blind spots before criticizing the world. At Honkerworks, investigation begins with ourselves."
+          ]
+        },
+        {
+          "heading": "Wrestling With AI",
+          "paragraphs": [
+            "The title itself emerged during long conversations with AI while exploring questions about reasoning, evidence, software architecture, and truth-seeking.",
+            "As countless discussions unfolded, one theme kept returning: Before building better systems, we needed to become better investigators. Not investigators in the detective sense, but investigators of our own thinking.",
+            "The AI eventually remarked that much of this work resembled a \"Chief Beam Inspector\"—someone whose responsibility is not simply to build, but to continually inspect the beams supporting the entire structure.",
+            "The name made us laugh. Then it stuck, because beneath the humour was something surprisingly accurate: much of engineering isn't writing code. It's examining assumptions, finding contradictions, removing unnecessary complexity, and strengthening weak foundations before adding another floor."
+          ]
+        },
+        {
+          "heading": "The Builder's Responsibility",
+          "paragraphs": [
+            "Building without investigation creates fragile systems. Investigation without building creates endless theory. Honkerworks tries to hold both in balance.",
+            "The role of the CBI is therefore to:"
+          ],
+          "list": [
+            "Inspect assumptions",
+            "Investigate evidence",
+            "Design experiments",
+            "Build carefully",
+            "Learn continuously",
+            "Revise opinions when presented with better evidence"
+          ],
+          "postscript": "Build. Investigate. Repeat. If there is a beam to inspect, inspect your own first."
+        }
+      ],
+      "additionalRoles": [
+        "Founder",
+        "Head of Research & Development",
+        "Systems Architect",
+        "Software Engineer",
+        "AI Systems Designer",
+        "Infrastructure Engineer",
+        "Product Designer",
+        "Research Engineer"
+      ],
+      "links": {
+        "github": "https://github.com/timeichler",
+        "linkedin": "#",
+        "twitter": "#",
+        "website": "#"
+      }
+    },
+    {
+      "id": "myles",
+      "name": "Myles",
+      "role": "Chief Executive Officer (CEO)",
+      "avatar": "assets/myles_avatar.png",
+      "summary": "Helping transform ambitious technical work into sustainable organisations.",
+      "bio": [
+        {
+          "paragraphs": [
+            "Myles focuses on helping transform ambitious technical work into sustainable organisations."
+          ],
+          "heading": "Responsibilities include:",
+          "list": [
+            "Company strategy",
+            "Partnerships",
+            "Business development",
+            "Operations",
+            "Organisational growth",
+            "Helping ensure research becomes real products that create value"
+          ],
+          "postscript": "As Honkerworks grows, the CEO role is responsible for aligning people, opportunities, and execution."
+        }
+      ],
+      "additionalRoles": [],
+      "links": {
+        "linkedin": "#",
+        "twitter": "#",
+        "website": "#"
+      }
+    },
+    {
+      "id": "jonathan",
+      "name": "Jonathan",
+      "role": "Partner",
+      "subtitle": "Independent Researcher & Developer",
+      "avatar": "assets/jonathan_avatar.png",
+      "summary": "Contributing broad technical thinking together with practical business insight.",
+      "bio": [
+        {
+          "paragraphs": [
+            "Jonathan contributes broad technical thinking together with practical business insight."
+          ],
+          "heading": "Current focus areas include:",
+          "list": [
+            "Independent research",
+            "Software development",
+            "Systems thinking",
+            "Market analysis",
+            "Business strategy",
+            "Identifying emerging opportunities",
+            "Challenging assumptions through discussion and experimentation"
+          ],
+          "postscript": "Rather than fitting into a narrow job title, Jonathan represents the value of independent expertise brought together around shared goals."
+        }
+      ],
+      "additionalRoles": [],
+      "links": {
+        "github": "#",
+        "linkedin": "#",
+        "website": "#"
+      }
+    }
+  ],
+  "growing": {
+    "title": "A Growing Team",
+    "paragraphs": [
+      "Honkerworks is still at the beginning.",
+      "Many future contributors will join from different backgrounds:"
+    ],
+    "backgrounds": [
+      "Software engineering",
+      "Artificial intelligence",
+      "Distributed systems",
+      "Mathematics",
+      "Physics",
+      "Biology",
+      "Design",
+      "Music",
+      "Education",
+      "Philosophy",
+      "Economics",
+      "Product",
+      "Operations"
+    ],
+    "postscript": "The goal is not to collect impressive résumés. The goal is to assemble people who enjoy asking difficult questions, building carefully, learning continuously, and leaving the world a little better than they found it."
+  }
+}
