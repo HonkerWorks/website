@@ -167,10 +167,10 @@
             transitionPhase(phases.consent, phases.calibration);
         });
 
-        // Ready -> Comic Cucumbergeddon
+        // Ready -> Choice (skip Cucumbergeddon comic intro)
         beginBtn.addEventListener('click', () => {
             setStorageItem('honkerworks_seen_question', 'true');
-            transitionPhase(phases.ready, phases.cucumbergeddonComic);
+            transitionPhase(phases.ready, phases.choice);
         });
 
         // Cucumbergeddon Comic -> Choice
@@ -1658,13 +1658,134 @@
     }
 
     // =================================-------------------------------------
-    // 5. EXECUTION ON DOM CONTENT LOADED
+    // 5. COMIC CAROUSEL
+    // =================-----------------------------------------------------
+
+    function initCarousels() {
+        document.querySelectorAll('.comic-carousel').forEach(carousel => {
+            const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+            const navs = Array.from(carousel.querySelectorAll('.carousel-nav'));
+            const total = slides.length;
+            let current = 0;
+
+            const goTo = (index) => {
+                slides[current].classList.remove('active');
+                current = (index + total) % total;
+                slides[current].classList.add('active');
+                const title = slides[current].getAttribute('data-title') || '';
+                navs.forEach(nav => {
+                    nav.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === current);
+                    });
+                    const cap = nav.querySelector('.carousel-caption');
+                    const ctr = nav.querySelector('.carousel-counter');
+                    if (cap) cap.textContent = title;
+                    if (ctr) ctr.textContent = `${current + 1} / ${total}`;
+                });
+            };
+
+            carousel.querySelectorAll('.carousel-prev').forEach(btn => btn.addEventListener('click', () => goTo(current - 1)));
+            carousel.querySelectorAll('.carousel-next').forEach(btn => btn.addEventListener('click', () => goTo(current + 1)));
+            navs.forEach(nav => {
+                nav.querySelectorAll('.carousel-dot').forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+            });
+
+            slides.forEach(slide => { slide.style.cursor = 'zoom-in'; });
+        });
+    }
+
+    // =================================-------------------------------------
+    // 6. GALLERY LIGHTBOX
+    // =================-----------------------------------------------------
+
+    function initGallery() {
+        const openLightbox = (src, title) => {
+            const existing = document.getElementById('hw-lightbox');
+            if (existing) existing.remove();
+
+            const overlay = document.createElement('div');
+            overlay.id = 'hw-lightbox';
+            overlay.style.cssText = [
+                'position:fixed', 'top:0', 'left:0', 'width:100vw', 'height:100vh',
+                'background:rgba(4,4,4,0.97)', 'z-index:2147483647',
+                'display:flex', 'flex-direction:column',
+                'align-items:center', 'justify-content:center',
+                'padding:3.5rem 1.5rem 1.5rem'
+            ].join(';');
+
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.setAttribute('aria-label', 'Close');
+            closeBtn.style.cssText = [
+                'position:absolute', 'top:1rem', 'right:1.25rem',
+                'width:2.5rem', 'height:2.5rem', 'border-radius:50%',
+                'background:rgba(30,30,30,0.9)', 'border:1px solid rgba(255,255,255,0.2)',
+                'color:#fff', 'font-size:1.5rem', 'line-height:1',
+                'cursor:pointer', 'display:flex', 'align-items:center', 'justify-content:center',
+                'z-index:2147483647', 'flex-shrink:0'
+            ].join(';');
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = title || '';
+            img.style.cssText = [
+                'max-width:100%', 'max-height:calc(100vh - 6rem)',
+                'width:auto', 'height:auto', 'object-fit:contain',
+                'display:block', 'border-radius:4px'
+            ].join(';');
+
+            const caption = document.createElement('div');
+            caption.textContent = title || '';
+            caption.style.cssText = [
+                'margin-top:0.75rem', 'font-family:monospace',
+                'font-size:0.72rem', 'color:#888',
+                'text-transform:uppercase', 'letter-spacing:0.06em',
+                'text-align:center'
+            ].join(';');
+
+            overlay.appendChild(closeBtn);
+            overlay.appendChild(img);
+            overlay.appendChild(caption);
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+
+            const close = () => {
+                overlay.remove();
+                document.body.style.overflow = '';
+            };
+
+            closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+            window.addEventListener('keydown', function onEsc(e) {
+                if (e.key === 'Escape') { close(); window.removeEventListener('keydown', onEsc); }
+            });
+        };
+
+        // Delegated handler catches gallery thumbnails AND carousel images
+        document.addEventListener('click', (e) => {
+            const galleryItem = e.target.closest('.gallery-item');
+            if (galleryItem) {
+                openLightbox(galleryItem.getAttribute('data-full'), galleryItem.getAttribute('data-title'));
+                return;
+            }
+            const slide = e.target.closest('.carousel-slide');
+            if (slide) {
+                const img = slide.querySelector('img');
+                if (img) openLightbox(img.src, slide.getAttribute('data-title'));
+            }
+        });
+    }
+
+    // =================================-------------------------------------
+    // 6. EXECUTION ON DOM CONTENT LOADED
     // =================-----------------------------------------------------
     window.addEventListener('DOMContentLoaded', () => {
         initStateMachine();
         initAnimation();
         initDriftingBanana();
         initTeamSection();
+        initCarousels();
+        initGallery();
     });
 
 })();
