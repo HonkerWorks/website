@@ -99,7 +99,14 @@
                     </div>
                     <div class="swatch" id="custom-add-btn" style="background: rgba(255,255,255,0.05); border: 2px dashed var(--text-muted); position: relative; display: flex; align-items: center; justify-content: center; height: 60px; padding: 0;">
                         <span class="swatch-name" style="color: var(--text-secondary); background: transparent; font-weight: 500; font-size: 0.75rem;">+ Custom</span>
-                        <input type="color" id="hidden-picker" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;" title="Select Custom Color">
+                        <div class="picker-popover" id="picker-popover">
+                            <span class="picker-popover-title">Pick Custom Color</span>
+                            <canvas class="picker-canvas" id="picker-canvas" width="200" height="120"></canvas>
+                            <div class="picker-preview-row">
+                                <div class="picker-preview-color" id="picker-preview-color" style="background-color: #ffffff;"></div>
+                                <span class="picker-preview-text" id="picker-preview-text">#FFFFFF</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

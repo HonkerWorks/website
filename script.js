@@ -115,6 +115,9 @@
         // First check: does consent historically exist in localStorage?
         const consentVal = localStorage.getItem('honkerworks_consent');
         
+        // Always set up calibration listeners so recalibration is interactive
+        setupCalibrationListeners();
+        
         if (consentVal === 'granted') {
             hasConsent = true;
             // Load custom colors
@@ -134,7 +137,6 @@
         
         // If not completed or first load, initialize questionnaire listeners
         setupIntroListeners();
-        setupCalibrationListeners();
     }
 
     function skipIntroDirectly() {
@@ -255,7 +257,11 @@
 
     function setupCalibrationListeners() {
         const swatches = document.querySelectorAll('.swatch:not(#custom-add-btn)');
-        const hiddenPicker = document.getElementById('hidden-picker');
+        const customAddBtn = document.getElementById('custom-add-btn');
+        const popover = document.getElementById('picker-popover');
+        const canvas = document.getElementById('picker-canvas');
+        const previewColor = document.getElementById('picker-preview-color');
+        const previewText = document.getElementById('picker-preview-text');
 
         // Curated swatches selection
         swatches.forEach(swatch => {
@@ -279,21 +285,98 @@
             });
         });
 
-        // Hidden picker change (fires when color is selected and native picker closes)
-        hiddenPicker.addEventListener('change', () => {
-            const color = hiddenPicker.value;
+        // Initialize custom canvas color picker spectrum
+        if (canvas && popover && previewColor && previewText) {
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
             
-            if (selectedColors.includes(color)) return;
+            const drawSpectrum = () => {
+                const width = canvas.width;
+                const height = canvas.height;
+                
+                // 1. Hue gradient horizontally
+                let hueGrd = ctx.createLinearGradient(0, 0, width, 0);
+                hueGrd.addColorStop(0, '#ff0000');
+                hueGrd.addColorStop(0.17, '#ffff00');
+                hueGrd.addColorStop(0.33, '#00ff00');
+                hueGrd.addColorStop(0.5, '#00ffff');
+                hueGrd.addColorStop(0.67, '#0000ff');
+                hueGrd.addColorStop(0.83, '#ff00ff');
+                hueGrd.addColorStop(1, '#ff0000');
+                ctx.fillStyle = hueGrd;
+                ctx.fillRect(0, 0, width, height);
+
+                // 2. White-to-transparent to black vertically
+                let satGrd = ctx.createLinearGradient(0, 0, 0, height);
+                satGrd.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                satGrd.addColorStop(0.5, 'rgba(255, 255, 255, 0)');
+                satGrd.addColorStop(0.5, 'rgba(0, 0, 0, 0)');
+                satGrd.addColorStop(1, 'rgba(0, 0, 0, 1)');
+                ctx.fillStyle = satGrd;
+                ctx.fillRect(0, 0, width, height);
+            };
             
-            if (selectedColors.length >= 3) {
-                const oldestColor = selectedColors.shift();
-                const dynamicOldest = document.querySelector(`.custom-swatch[data-color="${oldestColor}"]`);
-                if (dynamicOldest) dynamicOldest.remove();
+            drawSpectrum();
+
+            const rgbToHex = (r, g, b) => {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+            };
+
+            const getColorAtEvent = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = Math.max(0, Math.min(canvas.width - 1, Math.round((e.clientX - rect.left) * (canvas.width / rect.width))));
+                const y = Math.max(0, Math.min(canvas.height - 1, Math.round((e.clientY - rect.top) * (canvas.height / rect.height))));
+                const imgData = ctx.getImageData(x, y, 1, 1).data;
+                return rgbToHex(imgData[0], imgData[1], imgData[2]);
+            };
+
+            // Update preview on hover
+            canvas.addEventListener('mousemove', (e) => {
+                const color = getColorAtEvent(e);
+                previewColor.style.backgroundColor = color;
+                previewText.innerText = color;
+            });
+
+            // Click selects color, adds to selectedColors, closes popover
+            canvas.addEventListener('click', (e) => {
+                const color = getColorAtEvent(e);
+                
+                if (!selectedColors.includes(color)) {
+                    if (selectedColors.length >= 3) {
+                        const oldestColor = selectedColors.shift();
+                        const dynamicOldest = document.querySelector(`.custom-swatch[data-color="${oldestColor}"]`);
+                        if (dynamicOldest) dynamicOldest.remove();
+                    }
+                    selectedColors.push(color);
+                    syncCalibratorDOM();
+                    console.log("Custom color selected:", color);
+                }
+                
+                popover.classList.remove('active');
+                e.stopPropagation();
+            });
+
+            // Prevent event propagation on popover clicks
+            popover.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+
+        // Toggle custom color picker popover
+        if (customAddBtn && popover) {
+            customAddBtn.addEventListener('click', (e) => {
+                popover.classList.toggle('active');
+                e.stopPropagation();
+            });
+        }
+
+        // Click outside popover closes it
+        document.addEventListener('click', (e) => {
+            if (popover && popover.classList.contains('active')) {
+                const isClickInside = popover.contains(e.target) || (customAddBtn && customAddBtn.contains(e.target));
+                if (!isClickInside) {
+                    popover.classList.remove('active');
+                }
             }
-            
-            selectedColors.push(color);
-            syncCalibratorDOM();
-            console.log("Custom color locked in:", color);
         });
 
         confirmCalibrationBtn.addEventListener('click', () => {
@@ -306,7 +389,7 @@
                 mainSite.classList.remove('hidden');
                 void mainSite.offsetWidth;
                 mainSite.classList.add('visible');
-                canvasControls.classList.remove('hidden');
+                canvasControls.classList.remove('controls-hidden');
             } else {
                 transitionPhase(phases.calibration, phases.ready);
             }
